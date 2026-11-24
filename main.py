@@ -11,6 +11,9 @@ short enough to fit on the card tucked into its pot.
 
 from pathlib import Path
 
+# The fortune's cadence is a prediction, not a care instruction: it names
+# this plant on this windowsill (sun, cat, respectful distance) so the
+# line reads as if it were written for this pot, not any plant anywhere.
 FORTUNE = (
     "The sun has chosen your windowsill, and soon even the cat "
     "will admire you from a respectful distance."
@@ -29,7 +32,10 @@ def gate_ok(text: str) -> bool:
 
 def main() -> None:
     if not gate_ok(FORTUNE):
-        raise SystemExit("fortune fails the gate; refusing to write it")
+        raise SystemExit(
+            f"fortune fails the gate ({len(FORTUNE)} chars, limit "
+            f"{MAX_CHARS}); refusing to write it"
+        )
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(FORTUNE, encoding="utf-8")
 
